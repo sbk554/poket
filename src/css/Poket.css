@@ -1,0 +1,109 @@
+.poketmon-group{
+    display: flex;
+    gap: 20px;
+    width: 90%;
+}
+
+.poketmon-item{
+    width: 100%;
+    max-width: 267px;
+}
+
+.poketmon-images-wrap{
+    /* padding: 20px; */
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    transition: .5s;
+    width: 100%;
+}
+
+.poketmon-item:hover .poketmon-images-wrap {
+    margin-top: -10px;
+    margin-bottom: 10px;
+    padding-bottom: 0px;
+    box-shadow: 0 3px 11px 0px rgba(0, 0, 0, .1);
+}
+
+.poketmon-images{
+    width: 100%;
+}
+
+.paketmon_num{
+    margin-bottom: 15px;
+    font-size: 15px;
+    font-weight: 300;
+    color: #999;
+}
+
+.type-wrap{
+    display: flex;
+    justify-content: space-between;
+}
+
+.type-wrap p{
+    width: 42%;
+}
+
+/* 토글 스위치 스타일 */
+.toggle-btn{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+    margin-right: 8px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* 회색 배경 바 */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 26px;
+  }
+  
+  /* 원형 스위치 */
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px; width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  /* 선택되었을 때 색상 변경 */
+  .switch input:checked + .slider {
+    background-color: #4caf50;
+  }
+  
+  .switch input:checked + .slider:before {
+    transform: translateX(24px);
+  }
+  
+  /* 텍스트 라벨 */
+  .toggle-label {
+    font-size: 16px;
+    font-weight: 700;
+    vertical-align: middle;
+    color: #333;
+  }
