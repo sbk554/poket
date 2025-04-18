@@ -301,9 +301,9 @@ function App() {
       
       <div key={groupIndex} className='poketmon-group'>
         {group.map((pokemon) => (
-          <div key={pokemon.id} className='poketmon-item' onClick={() => listSetting(pokemon)}>
+          <div key={pokemon.id} className='poketmon-item'>
             <div className='poketmon-images-wrap'>
-              <img src={pokemon.isShiny ? pokemon.irochiImage : pokemon.image} alt={pokemon.name} className='poketmon-images' />
+              <img src={pokemon.isShiny ? pokemon.irochiImage : pokemon.image} alt={pokemon.name} className='poketmon-images'  onClick={() => listSetting(pokemon)}/>
             </div>
             <div className="toggle-btn">
               <label className="switch">
