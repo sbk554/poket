@@ -19,7 +19,7 @@ export default function Header({fetchMorePokemon}){
     return(
         <header className="poket-header">
             <div className='main-logo'>
-                <a href="/">
+                <a href="/poket">
                     <img src={main_logo} alt="포켓몬"/>
                 </a>
             </div>
