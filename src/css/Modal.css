@@ -1,0 +1,74 @@
+.modal-dialog {
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.dialog-container {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.dialog-container-wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap:20px
+}
+
+.dialog-container-wrap div{
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-container-wrap div form button{
+    width: 300px;
+    padding: 20px 0;
+    transform: skew(-20deg);
+    background-color: #da343c;
+    border-color: #da343c;
+    color: #fff;
+    display: inline-block;
+    font-size: 21px;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1.5;
+    border: 1px solid transparent;
+}
+
+.wrap-title h3{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    font-size: 45px;
+    font-weight: 700;
+}
+
+.wrap-title span{
+    font-size: 22px;
+    font-weight: 500;
+    color: #999;
+}
+
+.wrap-content{
+    padding: 8px 30px 20px;
+    border: 1px solid #e8e8e8;
+    border-radius: 7px;
+    margin-bottom: 20px;
+}
+
+.wrap-content > div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap:20px
+}
+
+.wrap-content > div > span{
+    display: flex;
+    flex-direction: column;
+    gap:20px
+}
