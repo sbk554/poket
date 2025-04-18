@@ -20,7 +20,7 @@ export default function Modal({ isOpen, onClose, content, typeColor }) {
             <div className="dialog-container-wrap">
                 <div className="wrap-title">
                     <h3>
-                        <span>{content?.text || "modal text"}</span>
+                        <span>NO.{String(content?.text).padStart(4, '0')}</span>
                         {content?.title || "This is modal"}
                     </h3>
                 </div>
@@ -43,13 +43,38 @@ export default function Modal({ isOpen, onClose, content, typeColor }) {
                                     }
                                 </div>
                             </span>
-                            <span>키</span>
-                            <span>분류</span>
+                            <span>키
+                                <div>
+                                {(content?.height * 0.1).toFixed(1)}m
+                                </div>
+                            </span>
+                            <span>분류
+                                <div>
+                                    {content?.genera}
+                                </div>
+                            </span>
                         </div>
                         <div>
-                            <span>성별</span>
-                            <span>몸무게</span>
-                            <span>특성</span>
+                            <span>성별
+                                <div className='wrap-gender'>
+                                    {content?.femaleRate === 100 ? (
+                                            <img src="src/images/icon_woman.png" alt="여자" width={20} />
+                                        ) : content?.maleRate === 100 ? (
+                                            <img src="src/images/icon_man.png" alt="남자" width={20} />
+                                        ) : (
+                                            <>
+                                            <img src="src/images/icon_man.png" alt="남자" width={20} style={{ marginRight: '4px' }} />
+                                            <img src="src/images/icon_woman.png" alt="여자" width={20} />
+                                            </>
+                                    )}
+                                </div>
+                            </span>
+                            <span>몸무게<div>{(content?.weight * 0.1).toFixed(1)}Kg</div></span>
+                            <span>특성
+                                <div>
+                                    {content?.abilities?.join(' ')}
+                                </div>
+                            </span>
                         </div>
                     </div>
                     <form method="dialog">

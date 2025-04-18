@@ -196,7 +196,22 @@ function App() {
           if (!poketmonList || poketmonList.length === 0) {
               console.log(poketmonUrl)
               const species = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${poketmonUrl.data.id}`);
+              const typeUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon/${poketmonUrl.data.id}`);
               const koreanNameObj = species.data.names.find(n => n.language.name === 'ko');
+              const genera = species.data.genera.find(n => n.language.name === 'ko').genus;
+              const genderRate = species.data.gender_rate;
+              const hasGender = genderRate !== -1;
+              const femaleRate = hasGender ? (genderRate / 8) * 100 : 0;
+              const maleRate = hasGender ? 100 - femaleRate : 0;
+              const abilities = typeUrl.data.abilities;
+              const abilityNames = await Promise.all(
+                abilities.map(async (a) => {
+                  const res = await axios.get(a.ability.url);
+                  const korean = res.data.names.find(n => n.language.name === 'ko');
+                  return korean?.name || a.ability.name;
+                })
+              );
+
               const arr = [
                 {
                   id: poketmonUrl.data.id,
@@ -204,7 +219,13 @@ function App() {
                   image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${poketmonUrl.data.id}.png`,
                   irochiImage: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${poketmonUrl.data.id}.png`,
                   isShiny: false,
-                  types : poketmonUrl.data.types
+                  types : poketmonUrl.data.types,
+                  height: poketmonUrl.data.height,
+                  weight: poketmonUrl.data.weight,
+                  genera: genera,
+                  femaleRate:femaleRate,
+                  maleRate:maleRate,
+                  abilities:abilityNames,
                 }
               ]
               return arr;
@@ -215,11 +236,23 @@ function App() {
               const detail = await axios.get(pokemon.url);
               const species = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${detail.data.id}`);
               const typeUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon/${detail.data.id}`);
-              // console.log(" species ::: ",species)
-              // console.log(" typeUrl ::: ",typeUrl)
+              
               const koreanNameObj = species.data.names.find(n => n.language.name === 'ko');
               const poketType = typeUrl.data.types
-              
+              const genera = species.data.genera.find(n => n.language.name === 'ko').genus;
+              const genderRate = species.data.gender_rate;
+              const hasGender = genderRate !== -1;
+              const femaleRate = hasGender ? (genderRate / 8) * 100 : 0;
+              const maleRate = hasGender ? 100 - femaleRate : 0;
+              const abilities = typeUrl.data.abilities;
+              const abilityNames = await Promise.all(
+                abilities.map(async (a) => {
+                  const res = await axios.get(a.ability.url);
+                  const korean = res.data.names.find(n => n.language.name === 'ko');
+                  return korean?.name || a.ability.name;
+                })
+              );
+
               return {
                 id: detail.data.id,
                 name: koreanNameObj ? koreanNameObj.name : detail.data.name,
@@ -227,7 +260,12 @@ function App() {
                 irochiImage: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${detail.data.id}.png`,
                 isShiny: false,
                 types:poketType,
-
+                height: typeUrl.data.height,
+                weight: typeUrl.data.weight,
+                genera: genera ,
+                femaleRate:femaleRate,
+                maleRate:maleRate,
+                abilities:abilityNames,
               };
             })
           );
@@ -280,7 +318,7 @@ function App() {
                   {pokemon.isShiny ? '일반' : '이로치'}
                 </span>
             </div>
-            <p class="paketmon_num">No.{pokemon.id}</p>
+            <p class="paketmon_num">No.{String(pokemon.id).padStart(4, '0')}</p>
             <h3 class="paketmon_name">{pokemon.name}</h3>
             <div className='type-wrap'>
                 {pokemon.types.map((type, idx) => {
@@ -300,9 +338,14 @@ function App() {
     setModalContent({
       image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`,
       title: pokemon.name,
-      text: `NO.${pokemon.id}`,
+      text: pokemon.id,
       types: pokemon.types,
-      
+      height: pokemon.height,
+      weight: pokemon.weight,
+      genera: pokemon.genera,
+      femaleRate: pokemon.femaleRate,
+      maleRate: pokemon.maleRate,
+      abilities: pokemon.abilities,
     });
     setIsModalOpen(true);
   };
