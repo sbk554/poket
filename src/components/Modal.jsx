@@ -3,7 +3,8 @@ import '../css/Modal.css';
 
 export default function Modal({ isOpen, onClose, content, typeColor }) {
   const dialogRef = useRef();
-  console.log(content)
+  const femaleRate = "/poket/src/images/icon_woman.png";
+  const maleRate = "/poket/src/images/icon_man.png";
   useEffect(() => {
     const dialog = dialogRef.current;
     if (isOpen) {
@@ -58,13 +59,13 @@ export default function Modal({ isOpen, onClose, content, typeColor }) {
                             <span>성별
                                 <div className='wrap-gender'>
                                     {content?.femaleRate === 100 ? (
-                                            <img src="src/images/icon_woman.png" alt="여자" width={20} />
+                                            <img src={femaleRate} alt="여자" width={20} />
                                         ) : content?.maleRate === 100 ? (
-                                            <img src="src/images/icon_man.png" alt="남자" width={20} />
+                                            <img src={maleRate} alt="남자" width={20} />
                                         ) : (
                                             <>
-                                            <img src="src/images/icon_man.png" alt="남자" width={20} style={{ marginRight: '4px' }} />
-                                            <img src="src/images/icon_woman.png" alt="여자" width={20} />
+                                            <img src={maleRate} alt="남자" width={20} style={{ marginRight: '4px' }} />
+                                            <img src={femaleRate} alt="여자" width={20} />
                                             </>
                                     )}
                                 </div>
