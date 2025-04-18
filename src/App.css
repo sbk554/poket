@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding:40px 0;
+    padding:120px 0;
 }
 
 .genBtn {
@@ -19,8 +19,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
     gap: 10px;
+    position: fixed;
+    background: #fff;
+    width: 100%;
+    height: 100px;
 }
 
 .gen_menu_wrap button {
