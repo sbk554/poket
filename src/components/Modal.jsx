@@ -64,7 +64,7 @@ export default function Modal({ isOpen, onClose, content, typeColor }) {
                                             <img src={maleRate} alt="남자" width={20} />
                                         ) : (
                                             <>
-                                            <img src={maleRate} alt="남자" width={20} style={{ marginRight: '4px' }} />
+                                            <img src={maleRate} alt="남자" width={20} />
                                             <img src={femaleRate} alt="여자" width={20} />
                                             </>
                                     )}

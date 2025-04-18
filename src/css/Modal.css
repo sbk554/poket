@@ -102,3 +102,9 @@
     flex-direction: row !important;
     gap: 10px;
 }
+
+.wrap-gender img{
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+}

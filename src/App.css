@@ -11,6 +11,10 @@
     padding:40px 0;
 }
 
+.genBtn {
+    cursor: pointer;
+}
+
 .gen_menu_wrap{
     display: flex;
     justify-content: center;
