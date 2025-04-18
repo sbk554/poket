@@ -79,7 +79,7 @@ export default function Modal({ isOpen, onClose, content, typeColor }) {
                         </div>
                     </div>
                     <form method="dialog">
-                        <button onClick={onClose}>닫기</button>
+                        <button className='dialog-close' onClick={onClose}>닫기</button>
                     </form>
                 </div>
             </div>

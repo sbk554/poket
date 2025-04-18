@@ -108,3 +108,7 @@
     height: 30px;
     flex-shrink: 0;
 }
+
+.dialog-close{
+    cursor: pointer;
+}
