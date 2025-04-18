@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import '../css/Modal.css';
 
-export default function Modal({ isOpen, onClose, content }) {
+export default function Modal({ isOpen, onClose, content, typeColor }) {
   const dialogRef = useRef();
   console.log(content)
   useEffect(() => {
@@ -29,7 +29,19 @@ export default function Modal({ isOpen, onClose, content }) {
                         <div>
                             <span>
                                 타입
-                                <p>{content?.types}</p>
+                                <div className='wrap-type'>
+                                    {content?.types?.length > 0 && content.types.map((type, idx) => {
+                                            const typeKey = type.type.name;
+                                            console.log(typeColor[typeKey])
+                                            return(
+                                                    <div>
+                                                        <img src={typeColor[typeKey].img}/>
+                                                        <span>{typeColor[typeKey].name}</span>
+                                                    </div>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </span>
                             <span>키</span>
                             <span>분류</span>

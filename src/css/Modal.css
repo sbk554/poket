@@ -60,6 +60,15 @@
     margin-bottom: 20px;
 }
 
+.wrap-content > div:first-child{
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 20px;
+} 
+
+.wrap-content > div:last-child{
+    padding-top: 20px;
+} 
+
 .wrap-content > div{
     display: flex;
     flex-direction: row;
@@ -71,4 +80,19 @@
     display: flex;
     flex-direction: column;
     gap:20px
+}
+
+.wrap-type{
+    flex-direction: row !important;
+    gap:10px;
+}
+
+.wrap-type > div{
+    align-items: center; 
+}
+
+.wrap-type > div >  img{
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
 }
