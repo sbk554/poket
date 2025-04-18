@@ -1,7 +1,6 @@
 import React, { useState} from 'react';
 import main_logo from '../images/main_logo.png';
 import icon_ball_b from '../images/icon_ball_b.png';
-import icon from '../images/_con.ico';
 import '../css/Header.css'
 
 export default function Header({fetchMorePokemon}){
@@ -19,7 +18,6 @@ export default function Header({fetchMorePokemon}){
 
     return(
         <header className="poket-header">
-            <link rel="shortcut icon" href={icon} type="image/x-icon"></link>
             <div className='main-logo'>
                 <a href="/poket">
                     <img src={main_logo} alt="포켓몬"/>
