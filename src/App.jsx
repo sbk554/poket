@@ -197,8 +197,6 @@ function App() {
               const detail = await axios.get(pokemon.url);
               const species = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${detail.data.id}`);
               const typeUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon/${detail.data.id}`);
-              const abilityUrl = await axios.get(`https://pokeapi.co/api/v2/ability/${detail.data.id}`);
-              console.log(" abilityUrl ::: ",abilityUrl)
               // console.log(" species ::: ",species)
               // console.log(" typeUrl ::: ",typeUrl)
               const koreanNameObj = species.data.names.find(n => n.language.name === 'ko');
