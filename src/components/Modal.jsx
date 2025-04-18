@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import '../css/Modal.css';
+import femaleRate from '../images/icon_woman.png'
+import maleRate from '../images/icon_man.png'
 
 export default function Modal({ isOpen, onClose, content, typeColor }) {
   const dialogRef = useRef();
-  const femaleRate = "./src/images/icon_woman.png";
-  const maleRate = "./src/images/icon_man.png";
   useEffect(() => {
     const dialog = dialogRef.current;
     if (isOpen) {

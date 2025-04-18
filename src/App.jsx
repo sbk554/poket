@@ -4,6 +4,26 @@ import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import Modal from './components/Modal.jsx'
 import React, { useState, useEffect, useCallback } from 'react';
+
+import grassPng from './images/grass.png'
+import firePng from './images/fire.png'
+import waterPng from './images/water.png'
+import flyingPng from './images/flying.png'
+import poisonPng from './images/poison.png'
+import bugPng from './images/bug.png'
+import normalPng from './images/normal.png'
+import electricPng from './images/electric.png'
+import groundPng from './images/ground.png'
+import fairyPng from './images/fairy.png'
+import fightingPng from './images/fighting.png'
+import psychicPng from './images/psychic.png'
+import rockPng from './images/rock.png'
+import steelPng from './images/steel.png'
+import icePng from './images/ice.png'
+import ghostPng from './images/ghost.png'
+import dragonPng from './images/dragon.png'
+import darkPng from './images/dark.png'
+
 import axios from 'axios';
 
 function App() {
@@ -20,109 +40,109 @@ function App() {
         name: "풀",
         color: "#42bf24",
         type:"grass",
-        img:"./src/images/grass.png"
+        img:grassPng 
     },
     fire: {
         name: "불꽃",
         color: "#ff612c",
         type:"fire",
-        img:"./src/images/fire.png"
+        img:firePng 
     },
     water: {
         name: "물",
         color: "#2992ff",
         type:"water",
-        img:"./src/images/water.png"
+        img:waterPng 
     },
     flying: {
         name: "비행",
         color: "#95c9ff",
         type:"flying",
-        img:"./src/images/flying.png"
+        img:flyingPng 
     },
     poison:{
         name: "독",
         color: "#994dcf",
         type:"poison",
-        img:"./src/images/poison.png"
+        img:poisonPng 
     },
     bug:{//6
         name: "벌레",
         color: "#9fa424",
         type:"bug",
-        img:"./src/images/bug.png"
+        img:bugPng 
     },
     normal:{
         name: "노말",
         color: "#999999",
         type:"normal",
-        img:"./src/images/normal.png"
+        img:normalPng 
     },
     electric:{
         name: "전기",
         color: "#ffdb00",
         type:"electric",
-        img:"./src/images/electric.png"
+        img:electricPng 
     },
     ground:{
         name: "땅",
         color: "#ab7939",
         type:"ground",
-        img:"./src/images/ground.png"
+        img:groundPng 
     },
     fairy:{
         name: "페어리",
         color: "#ffb1ff",
         type:"fairy",
-        img:"./src/images/fairy.png"
+        img:fairyPng 
     },
     fighting:{
         name: "격투",
         color: "#ffa202",
         type:"fighting",
-        img:"./src/images/fighting.png"
+        img:fightingPng 
     },
     psychic:{
         name: "에스퍼",
         color: "#ff637f",
         type:"psychic",
-        img:"./src/images/psychic.png"
+        img:psychicPng 
     },
     rock:{
         name: "바위",
         color: "#bcb889",
         type:"rock",
-        img:"./src/images/rock.png"
+        img:rockPng 
     },
     steel:{
         name: "강철",
         color: "#6aaed3",
         type:"steel",
-        img:"./src/images/steel.png"
+        img:steelPng 
     },
     ice:{
         name: "얼음",
         color: "#42d8ff",
         type:"ice",
-        img:"./src/images/ice.png"
+        img:icePng 
     },
     ghost:{
         name: "고스트",
         color: "#6e4570",
         type:"ghost",
-        img:"./src/images/ghost.png"
+        img:ghostPng 
     },
     dragon:{
         name: "드래곤",
         color: "#5462d6",
         type:"dragon",
-        img:"./src/images/dragon.png"
+        img:dragonPng 
     },
     dark:{
         name: "악",
         color: "#4f4747",
         type:"dark",
-        img:"./src/images/dark.png"
+        img:darkPng 
     },
   }
 
