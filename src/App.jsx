@@ -20,109 +20,109 @@ function App() {
         name: "풀",
         color: "#42bf24",
         type:"grass",
-        img:"/poket/src/images/grass.png"
+        img:"./src/images/grass.png"
     },
     fire: {
         name: "불꽃",
         color: "#ff612c",
         type:"fire",
-        img:"/poket/src/images/fire.png"
+        img:"./src/images/fire.png"
     },
     water: {
         name: "물",
         color: "#2992ff",
         type:"water",
-        img:"/poket/src/images/water.png"
+        img:"./src/images/water.png"
     },
     flying: {
         name: "비행",
         color: "#95c9ff",
         type:"flying",
-        img:"/poket/src/images/flying.png"
+        img:"./src/images/flying.png"
     },
     poison:{
         name: "독",
         color: "#994dcf",
         type:"poison",
-        img:"/poket/src/images/poison.png"
+        img:"./src/images/poison.png"
     },
     bug:{//6
         name: "벌레",
         color: "#9fa424",
         type:"bug",
-        img:"/poket/src/images/bug.png"
+        img:"./src/images/bug.png"
     },
     normal:{
         name: "노말",
         color: "#999999",
         type:"normal",
-        img:"/poket/src/images/normal.png"
+        img:"./src/images/normal.png"
     },
     electric:{
         name: "전기",
         color: "#ffdb00",
         type:"electric",
-        img:"/poket/src/images/electric.png"
+        img:"./src/images/electric.png"
     },
     ground:{
         name: "땅",
         color: "#ab7939",
         type:"ground",
-        img:"/poket/src/images/ground.png"
+        img:"./src/images/ground.png"
     },
     fairy:{
         name: "페어리",
         color: "#ffb1ff",
         type:"fairy",
-        img:"/poket/src/images/fairy.png"
+        img:"./src/images/fairy.png"
     },
     fighting:{
         name: "격투",
         color: "#ffa202",
         type:"fighting",
-        img:"/poket/src/images/fighting.png"
+        img:"./src/images/fighting.png"
     },
     psychic:{
         name: "에스퍼",
         color: "#ff637f",
         type:"psychic",
-        img:"/poket/src/images/psychic.png"
+        img:"./src/images/psychic.png"
     },
     rock:{
         name: "바위",
         color: "#bcb889",
         type:"rock",
-        img:"/poket/src/images/rock.png"
+        img:"./src/images/rock.png"
     },
     steel:{
         name: "강철",
         color: "#6aaed3",
         type:"steel",
-        img:"/poket/src/images/steel.png"
+        img:"./src/images/steel.png"
     },
     ice:{
         name: "얼음",
         color: "#42d8ff",
         type:"ice",
-        img:"/poket/src/images/ice.png"
+        img:"./src/images/ice.png"
     },
     ghost:{
         name: "고스트",
         color: "#6e4570",
         type:"ghost",
-        img:"/poket/src/images/ghost.png"
+        img:"./src/images/ghost.png"
     },
     dragon:{
         name: "드래곤",
         color: "#5462d6",
         type:"dragon",
-        img:"/poket/src/images/dragon.png"
+        img:"./src/images/dragon.png"
     },
     dark:{
         name: "악",
         color: "#4f4747",
         type:"dark",
-        img:"/poket/src/images/dark.png"
+        img:"./src/images/dark.png"
     },
   }
 

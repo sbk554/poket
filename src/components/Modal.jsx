@@ -3,8 +3,8 @@ import '../css/Modal.css';
 
 export default function Modal({ isOpen, onClose, content, typeColor }) {
   const dialogRef = useRef();
-  const femaleRate = "/poket/src/images/icon_woman.png";
-  const maleRate = "/poket/src/images/icon_man.png";
+  const femaleRate = "./src/images/icon_woman.png";
+  const maleRate = "./src/images/icon_man.png";
   useEffect(() => {
     const dialog = dialogRef.current;
     if (isOpen) {
