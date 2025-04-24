@@ -5,6 +5,7 @@ import maleRate from '../images/icon_man.png'
 
 export default function Modal({ isOpen, onClose, content, typeColor }) {
   const dialogRef = useRef();
+  console.log(content)
   useEffect(() => {
     const dialog = dialogRef.current;
     if (isOpen) {

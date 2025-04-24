@@ -37,114 +37,24 @@ function App() {
   const [user, setUser] = useState(null);
     
   const typeColor = {
-    grass: {
-        name: "풀",
-        color: "#42bf24",
-        type:"grass",
-        img:grassPng 
-    },
-    fire: {
-        name: "불꽃",
-        color: "#ff612c",
-        type:"fire",
-        img:firePng 
-    },
-    water: {
-        name: "물",
-        color: "#2992ff",
-        type:"water",
-        img:waterPng 
-    },
-    flying: {
-        name: "비행",
-        color: "#95c9ff",
-        type:"flying",
-        img:flyingPng 
-    },
-    poison:{
-        name: "독",
-        color: "#994dcf",
-        type:"poison",
-        img:poisonPng 
-    },
-    bug:{//6
-        name: "벌레",
-        color: "#9fa424",
-        type:"bug",
-        img:bugPng 
-    },
-    normal:{
-        name: "노말",
-        color: "#999999",
-        type:"normal",
-        img:normalPng 
-    },
-    electric:{
-        name: "전기",
-        color: "#ffdb00",
-        type:"electric",
-        img:electricPng 
-    },
-    ground:{
-        name: "땅",
-        color: "#ab7939",
-        type:"ground",
-        img:groundPng 
-    },
-    fairy:{
-        name: "페어리",
-        color: "#ffb1ff",
-        type:"fairy",
-        img:fairyPng 
-    },
-    fighting:{
-        name: "격투",
-        color: "#ffa202",
-        type:"fighting",
-        img:fightingPng 
-    },
-    psychic:{
-        name: "에스퍼",
-        color: "#ff637f",
-        type:"psychic",
-        img:psychicPng 
-    },
-    rock:{
-        name: "바위",
-        color: "#bcb889",
-        type:"rock",
-        img:rockPng 
-    },
-    steel:{
-        name: "강철",
-        color: "#6aaed3",
-        type:"steel",
-        img:steelPng 
-    },
-    ice:{
-        name: "얼음",
-        color: "#42d8ff",
-        type:"ice",
-        img:icePng 
-    },
-    ghost:{
-        name: "고스트",
-        color: "#6e4570",
-        type:"ghost",
-        img:ghostPng 
-    },
-    dragon:{
-        name: "드래곤",
-        color: "#5462d6",
-        type:"dragon",
-        img:dragonPng 
-    },
-    dark:{
-        name: "악",
-        color: "#4f4747",
-        type:"dark",
-        img:darkPng 
-    },
+    grass: { name: "풀", color: "#42bf24", img: grassPng },
+    fire: { name: "불꽃", color: "#ff612c", img: firePng },
+    water: { name: "물", color: "#2992ff", img: waterPng },
+    flying: { name: "비행", color: "#95c9ff", img: flyingPng },
+    poison: { name: "독", color: "#994dcf", img: poisonPng },
+    bug: { name: "벌레", color: "#9fa424", img: bugPng },
+    normal: { name: "노말", color: "#999999", img: normalPng },
+    electric: { name: "전기", color: "#ffdb00", img: electricPng },
+    ground: { name: "땅", color: "#ab7939", img: groundPng },
+    fairy: { name: "페어리", color: "#ffb1ff", img: fairyPng },
+    fighting: { name: "격투", color: "#ffa202", img: fightingPng },
+    psychic: { name: "에스퍼", color: "#ff637f", img: psychicPng },
+    rock: { name: "바위", color: "#bcb889", img: rockPng },
+    steel: { name: "강철", color: "#6aaed3", img: steelPng },
+    ice: { name: "얼음", color: "#42d8ff", img: icePng },
+    ghost: { name: "고스트", color: "#6e4570", img: ghostPng },
+    dragon: { name: "드래곤", color: "#5462d6", img: dragonPng },
+    dark: { name: "악", color: "#4f4747", img: darkPng },
   }
 
   const handleToggleClick = (id) => {
@@ -239,6 +149,7 @@ function App() {
               
               const species = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${poketmonUrl.data.id}`);
               const typeUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon/${poketmonUrl.data.id}`);
+              
               const koreanNameObj = species.data.names.find(n => n.language.name === 'ko');
               const genera = species.data.genera.find(n => n.language.name === 'ko').genus;
               const genderRate = species.data.gender_rate;
@@ -295,7 +206,32 @@ function App() {
                   return korean?.name || a.ability.name;
                 })
               );
-
+              console.log(koreanNameObj)
+              // varieties
+              const forms = (await Promise.all(
+                species.data.varieties
+                  .filter(v => !v.is_default)
+                  .map(async v => {
+                    const fRes = await axios.get(v.pokemon.url);
+                    let formName = koreanNameObj;
+                    const slug = v.pokemon.name;
+                    if (slug.includes('mega-x')) formName = `메가${formName} X`;
+                    else if (slug.includes('mega-y')) formName = `메가${formName} Y`;
+                    else if (slug.includes('mega')) formName = `메가${formName}`;
+                    else if (slug.includes('gmax')) formName = `${formName}의 모습`;
+              
+                    return {
+                      id: fRes.data.id, // 정렬을 위해 id 포함
+                      name: formName,
+                      image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${fRes.data.id}.png`,
+                      irochiImage: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${fRes.data.id}.png`,
+                      types: fRes.data.types,
+                      height: fRes.data.height,
+                      weight: fRes.data.weight,
+                    };
+                  })
+              ));
+              console.log("forms :::: ",forms)
               return {
                 id: detail.data.id,
                 name: koreanNameObj ? koreanNameObj.name : detail.data.name,
