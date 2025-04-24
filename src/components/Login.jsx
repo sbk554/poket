@@ -13,8 +13,7 @@ export default function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
-          const userCredential = signInWithEmailAndPassword(auth, email, password);
-          console.log("로그인 성공", userCredential.user);
+          signInWithEmailAndPassword(auth, email, password);
           naviate("/poket");
         } catch (error) {
           console.log("오류", error.message);

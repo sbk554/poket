@@ -53,7 +53,7 @@ export default function Header({fetchMorePokemon}){
                 </h2>
                 <div className='search-item'>
                     <input type="text" 
-                        placeholder="포켓몬 이름(한글,영문 전체 입력해주세요.) 또는 번호를 입력해주세요."
+                        placeholder="포켓몬 이름(한글,영문 입력해주세요.) 또는 번호를 입력해주세요."
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
                         onKeyDown={handleKeyPress}
