@@ -30,6 +30,7 @@ export default function Header({fetchMorePokemon}){
       }, []);
     
       const logout = () => {
+        if(confirm("로그아웃하시겠습니까?")){
         signOut(auth)
           .then(() => {
             console.log("로그아웃 성공");
@@ -37,6 +38,7 @@ export default function Header({fetchMorePokemon}){
           .catch((e) => {
             console.log(e);
           });
+        }
       };
       
     return(

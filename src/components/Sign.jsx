@@ -34,7 +34,7 @@ export default function Sign() {
           await updateProfile(user, {
             displayName: name,
           });
-
+          alert("회원가입 완료되었습니다.")
           navigate("/poket");
         } catch (error) {
           console.log("회원가입 오류", error.message);
