@@ -1,10 +1,15 @@
-import React, { useState} from 'react';
+import React, { useState , useEffect} from 'react';
+import { Link } from "react-router";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../firebase-config";
+
 import main_logo from '../images/main_logo.png';
 import icon_ball_b from '../images/icon_ball_b.png';
 import '../css/Header.css'
 
 export default function Header({fetchMorePokemon}){
     const [searchText, setSearchText] = useState('');
+    const [user, setUser] = useState(null);
 
     const handleSearch = () => {
         fetchMorePokemon(searchText.trim(), true);
@@ -16,10 +21,28 @@ export default function Header({fetchMorePokemon}){
         }
     };
 
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (curUser) => {
+          setUser(curUser);
+        });
+    
+        return () => unsubscribe();
+      }, []);
+    
+      const logout = () => {
+        signOut(auth)
+          .then(() => {
+            console.log("로그아웃 성공");
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      };
+      
     return(
         <header className="poket-header">
             <div className='main-logo'>
-                <a href="/poket">
+                <a href="/poket/">
                     <img src={main_logo} alt="포켓몬"/>
                 </a>
             </div>
@@ -38,6 +61,21 @@ export default function Header({fetchMorePokemon}){
                     <button type='button' className='btn-search' onClick={handleSearch}>
                         <p className='sr-only'>검색</p>
                     </button>
+                </div>
+                <div className='login-wrap'>
+                    {user === null ? (
+                        <>
+                            <Link to="/login" user={{user}}>로그인</Link>
+                            /
+                            <Link to="/sign">회원가입</Link>
+                        </>
+                    ) : (
+                        <>
+                            <a>{user.displayName}님</a>
+                            /
+                            <a onClick={logout}>로그아웃</a>
+                        </>
+                    )}
                 </div>
             </div>
         </header>

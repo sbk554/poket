@@ -50,7 +50,7 @@
 
 .search-item{
     position: relative;
-    width: 80%;
+    width: 75%;
 }
 
 .search-item:before{
@@ -75,7 +75,7 @@
 .search-item input{
     height: 55px;
     padding-left: 20px;
-    width: 100%;
+    width: 98%;
     color: #fff;
     background: #0e0e0e;
     border-radius: 0 !important;
@@ -83,7 +83,7 @@
 
 .search-item button{
     position: absolute;
-    right: -24px;
+    right: 1px;
     top: 3px;
     height: 55px;
     width: 55px;
@@ -127,4 +127,19 @@
     height: 27px;
     background: #0e0e0e;
     transform: skew(-40deg);
+}
+
+.login-wrap{
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 800;
+    margin-left: 10px;
+}
+
+.login-wrap a{
+    color: #fff;
 }

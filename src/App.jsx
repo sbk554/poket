@@ -30,10 +30,11 @@ function App() {
   const [pokemonData, setPokemonData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true); // 전체 개수 넘지 않도록
-  const [nameMap , setNameMap ] = useState({});
+  const [nameList, setNameList] = useState([]);
   const [selectedGen, setSelectedGen] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState({});
+  const [user, setUser] = useState(null);
     
   const typeColor = {
     grass: {
@@ -162,59 +163,80 @@ function App() {
     const allGenerations = listResponse.data.results;
     pokemonGeneration = [allGenerations[num]];
     
-    const newNameMap = {};
-    pokemonGeneration.map(async (generation) => {
+    const newList = [];
+
+    for (const generation of pokemonGeneration) {
       const poketmonUrl = await axios.get(generation.url);
-      const poketmonList = poketmonUrl.data.pokemon_species
-      poketmonList.map(async (pokemon) => {
+      const poketmonList = poketmonUrl.data.pokemon_species;
+
+      for (const pokemon of poketmonList) {
         const detail = await axios.get(pokemon.url);
         const species = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${detail.data.id}`);
         const koreanNameObj = species.data.names.find(n => n.language.name === 'ko');
-        
-        newNameMap[koreanNameObj.name] = detail.data.name;
-      });
-    });
-    setNameMap(newNameMap);
+
+        newList.push({
+          ko: koreanNameObj?.name,
+          en: detail.data.name,
+          id: detail.data.id
+        });
+      }
+    }
+    
+    setNameList(newList);
+    return newList;
   }
 
   const fetchMorePokemon = useCallback(async (searchText = '',isSearch = false, num = 0) => {
+
     if (isLoading || !hasMore) return;
+
     setIsLoading(true);
-    mapAdd(num);
+    const nameListResult = await mapAdd(num);
+    
     try {
       if (isSearch) {
-        setPokemonData([]);// 검색 시 기존 목록 초기화
-        setHasMore(true);// 검색 후 다시 로딩 가능하도록
+        setPokemonData([]);
+        setHasMore(true);
       }
-      const englishName = nameMap[searchText];
-      
+
       let pokemonGeneration = [];
 
-      if (searchText && (isSearch && /^\d+$/.test(searchText))) {
-
-        pokemonGeneration = [{ name: searchText, url: `https://pokeapi.co/api/v2/pokemon/${searchText}/`}];
-
-      }else if(searchText == '' || searchText == undefined || searchText == null){
-        const listResponse = await axios.get(`https://pokeapi.co/api/v2/generation`);
-        const allGenerations = listResponse.data.results;
-    
-        pokemonGeneration = [allGenerations[num]];
-
-        if (pokemonGeneration.length === 0) {
-          setHasMore(false);
-          return;
+      if (searchText) {
+        const isKorean = /[가-힣]/.test(searchText);
+        if (isKorean) {
+          
+          const filtered = nameListResult.filter(p =>
+            p.ko?.includes(searchText)
+          );
+          if (filtered.length === 0) {
+            setHasMore(false);
+            setIsLoading(false);
+            return;
+          }
+          
+          pokemonGeneration = filtered.map(p => ({
+            name: p.en,
+            url: `https://pokeapi.co/api/v2/pokemon/${p.en}/`
+          }));
+          
+        } else if (/^\d+$/.test(searchText)) {
+          pokemonGeneration = [{ name: searchText, url: `https://pokeapi.co/api/v2/pokemon/${searchText}/` }];
+        } else {
+          pokemonGeneration = [{ name: searchText, url: `https://pokeapi.co/api/v2/pokemon/${searchText}/` }];
         }
       } else {
-        pokemonGeneration = [{ name: englishName, url: `https://pokeapi.co/api/v2/pokemon/${englishName}/` }];
+        const listResponse = await axios.get(`https://pokeapi.co/api/v2/generation`);
+        const allGenerations = listResponse.data.results;
+        pokemonGeneration = [allGenerations[num]];
       }
-      
+      let arr = [];
       const allData = await Promise.all(
         pokemonGeneration.map(async (generation) => {
           const poketmonUrl = await axios.get(generation.url);
           const poketmonList = poketmonUrl.data.pokemon_species;
-
+          
           if (!poketmonList || poketmonList.length === 0) {
-              console.log(poketmonUrl)
+              
               const species = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${poketmonUrl.data.id}`);
               const typeUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon/${poketmonUrl.data.id}`);
               const koreanNameObj = species.data.names.find(n => n.language.name === 'ko');
@@ -232,22 +254,23 @@ function App() {
                 })
               );
 
-              const arr = [
-                {
-                  id: poketmonUrl.data.id,
-                  name: koreanNameObj ? koreanNameObj.name : poketmonUrl.data.name,
-                  image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${poketmonUrl.data.id}.png`,
-                  irochiImage: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${poketmonUrl.data.id}.png`,
-                  isShiny: false,
-                  types : poketmonUrl.data.types,
-                  height: poketmonUrl.data.height,
-                  weight: poketmonUrl.data.weight,
-                  genera: genera,
-                  femaleRate:femaleRate,
-                  maleRate:maleRate,
-                  abilities:abilityNames,
-                }
-              ]
+              const singlePokemon = {
+                id: poketmonUrl.data.id,
+                name: koreanNameObj ? koreanNameObj.name : poketmonUrl.data.name,
+                image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${poketmonUrl.data.id}.png`,
+                irochiImage: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${poketmonUrl.data.id}.png`,
+                isShiny: false,
+                types: poketmonUrl.data.types,
+                height: poketmonUrl.data.height,
+                weight: poketmonUrl.data.weight,
+                genera: genera,
+                femaleRate: femaleRate,
+                maleRate: maleRate,
+                abilities: abilityNames,
+              };
+              
+              arr.push(singlePokemon);
+              arr.sort((a, b) => a.id - b.id);
               return arr;
           }
       
@@ -289,11 +312,13 @@ function App() {
               };
             })
           );
-      
+          
           const sortedData = data.sort((a, b) => a.id - b.id);
+          
           return sortedData;
         })
       );
+      
       setPokemonData(prev => [...prev, ...allData]);
     } catch (error) {
       console.error('포켓몬 데이터를 불러오는 중 오류 발생:', error);
@@ -310,13 +335,13 @@ function App() {
   const renderPokemonList = (num) => {
     num = num == undefined ? 0 : num
     const groups = [];
-
+    
     if (pokemonData.length > 0 && pokemonData[0]?.length > 0) {
       for (let i = 0; i < pokemonData[0].length; i += 6) {
         groups.push(pokemonData[0].slice(i, i + 6));
       }
     }
-
+    
     return groups.map((group, groupIndex) => (
       
       <div key={groupIndex} className='poketmon-group'>
@@ -354,7 +379,6 @@ function App() {
   };
 
   const listSetting = (pokemon) => {
-    console.log(pokemon)
     setModalContent({
       image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`,
       title: pokemon.name,
